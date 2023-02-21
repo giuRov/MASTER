@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-import dash                                     # pip install dash
+import dash  # pip install dash
 from dash import dcc, html, Input, Output
 from dash.exceptions import PreventUpdate
 import pandas as pd
@@ -92,33 +92,25 @@ app.layout = html.Div([
 )
 
 def update_output(date,value):
-    #print('--------------------- ' + str(datetime.now()) + ' ---------------------')
     len_choices = len(value)
-    #print('len_choices: ' + str(len_choices))
     if(len_choices == 0) : 
-        print("raise PreventUpdate")
+        #print("raise PreventUpdate")
         raise PreventUpdate
 
     # datetime object containing current date and time
-    #print('date: ' + date)
-    #print('value: ' + str(value))
     dff = df_validation[df_validation['travel_type'].isin(value)]
     dff.reset_index(drop=True)
 
     mask = (dff['date'] == date)
     dff = dff.loc[mask]
 
-    #print(f'len(dff) prima del sum: {str(len(dff))}')
     if(len_choices > 1) :
         dff = dff.groupby(['stop_id','name','lat','lon'])['counts'].agg(['sum']).reset_index()
         dff.rename(columns={'sum': 'counts'}, inplace=True)
         dff.sort_values(by=['stop_id'], inplace=True)
 
-    #print(f'len(dff): {len(dff)}')
-    #print(dff.dtypes)
-    #print(dff)
     if dff.empty:
-        print(f'Dataframe empty')
+        #print(f'Dataframe empty')
         raise PreventUpdate
 
     fig = px.scatter_mapbox(dff, lat='lat', lon='lon', color ='counts', size = 'counts', 
@@ -146,17 +138,12 @@ def update_output(date,value):
 )
 
 def update_output_sec(date,value):
-    print('########################## ' + str(datetime.now()) + ' ####################')
-
     len_choices = len(value)
-    print('len_choices: ' + str(len_choices))
     if(len_choices == 0) : 
-        print("raise PreventUpdate")
+        #print("raise PreventUpdate")
         raise PreventUpdate
 
     # datetime object containing current date and time
-    print('date: ' + date)
-    print('value: ' + str(value))
     dff2 = df[df['travel_type'].isin(value)]
     dff2.reset_index(drop=True)
 
@@ -164,30 +151,16 @@ def update_output_sec(date,value):
     dff2 = dff2.loc[mask]
     dff2 = dff2.reset_index(drop=True)
 
-    print(f'len(dff2) prima del sum: {str(len(dff2))}')
-    print(dff2)
-
     dff2 = dff2.groupby(['time'])['counts'].agg(['sum']).reset_index()
     dff2.rename(columns={'sum': 'counts'}, inplace=True)
     dff2.sort_values(by=['time'], inplace=True)
 
-    print('______dff2______')
-    print(dff2)
-
-    #dff2.rename(columns={'time': 'time_slot'}, inplace=True)
-    #dff2.reset_index(drop=True)
-    #print(f'len(dff2): {len(dff2)}')
-    #print(dff2.dtypes)
-
     dff2['time'] = dff2['time'].map(lambda t: t[:-3])
     my_time_min = dff2['time'].min()
     my_time_max = dff2['time'].max()
-    print(f'my_time_min: {my_time_min}, my_time_max: {my_time_max}')
-    print(dff2)
-    print(dff2.dtypes)
 
     if dff2.empty:
-        print(f'Dataframe empty')
+        #print(f'Dataframe empty')
         raise PreventUpdate
 
 

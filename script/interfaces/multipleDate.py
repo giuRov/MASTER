@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-import dash                                     # pip install dash
+import dash  # pip install dash
 from dash import dcc, html, Input, Output
 from dash.exceptions import PreventUpdate
 import pandas as pd
@@ -38,7 +38,6 @@ date = set(date)
 disabled_days = all_date - date
 disabled_days = list(disabled_days)
 
-print('START ' + str(datetime.now()))
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -93,19 +92,11 @@ app.layout = html.Div([
 )
 
 def update_output(start_date,end_date,value):
-    print('--------------------- ' + str(datetime.now()) + ' ---------------------')
-
     len_choices = len(value)
-    print('len_choices: ' + str(len_choices))
     if(len_choices == 0 or start_date > end_date or start_date == end_date) : 
         #print("raise PreventUpdate")
         raise PreventUpdate
 
-    print('start_date: ' + start_date)
-    print('end_date: ' + end_date)
-    print('value: ' + str(value))
-
-    #print('len df prima di iniziare con dff: ' + str(len(df)))
     dff = df[df['travel_type'].isin(value)]
     dff.reset_index(drop=True)
 
@@ -117,15 +108,10 @@ def update_output(start_date,end_date,value):
         dff.rename(columns={'sum': 'counts'}, inplace=True)
         dff.sort_values(by=['stop_id','travel_type'], inplace=True)
 
-    #print('len(dff) prima del sum: ' + str(len(dff)))
     if(len_choices > 1) :
         dff = dff.groupby(['stop_id','name_stop','lat','lon'])['counts'].agg(['sum']).reset_index()
         dff.rename(columns={'sum': 'counts'}, inplace=True)
         dff.sort_values(by=['stop_id'], inplace=True)
-
-    #print(f'len(dff): {len(dff)}')
-    #print(dff.dtypes)
-    #print(dff)
 
     fig = px.scatter_mapbox(dff, lat='lat', lon='lon', color ='counts', size = 'counts', 
                             mapbox_style="carto-positron", width=1300, height=500, zoom=11.1, 
@@ -149,50 +135,31 @@ def update_output(start_date,end_date,value):
 )
 
 def update_output_sec(start_date,end_date,value):
-    print('########################## ' + str(datetime.now()) + ' ####################')
 
     len_choices = len(value)
-    #print('len_choices: ' + str(len_choices))
     if(len_choices == 0 or start_date > end_date or start_date == end_date) : 
         #print("raise PreventUpdate")
         raise PreventUpdate
 
     # datetime object containing current date and time
-    print('start_date: ' + start_date)
-    print('end_date: ' + end_date)
-    print('value: ' + str(value))
     dff2 = df[df['travel_type'].isin(value)]
     dff2.reset_index(drop=True)
 
     mask = (dff2['date'] >= start_date) & (dff2['date'] <= end_date)
     dff2 = dff2.loc[mask]
 
-    print(f'len(dff2) prima del sum: {str(len(dff2))}')
-
     dff2 = dff2.groupby(['time'])['counts'].agg(['sum']).reset_index()
     dff2.rename(columns={'sum': 'counts'}, inplace=True)
     dff2.sort_values(by=['time'], inplace=True)
 
-    #dff2.rename(columns={'time_slot': 'date_time'}, inplace=True)
-    #dff2.reset_index(drop=True)
-    print(f'len(dff2): {len(dff2)}')
-    print(dff2.dtypes)
-
-    #my_date_min = datetime.strptime(date, "%Y-%m-%d")
-    #my_date_max = my_date_min + timedelta(hours=23)
-    #print(f'my_date_min: {my_date_min}, my_date_max: {my_date_max}')
-    
-
     if dff2.empty:
-        print(f'Dataframe empty')
+        #print(f'Dataframe empty')
         raise PreventUpdate
 
     dff2['time'] = dff2['time'].map(lambda t: t[:-3])
     my_time_min = dff2['time'].min()
     my_time_max = dff2['time'].max()
-    print(f'my_time_min: {my_time_min}, my_time_max: {my_time_max}')
 
-    print(dff2)
     fig2 = px.bar(dff2,x='time',y='counts',hover_data=['counts'], color='counts',color_continuous_scale='viridis',text_auto='.2s',
         height=400,width=1300,labels={'time':'Time slots'})
         #labels={'counts':'Number of tickets'})

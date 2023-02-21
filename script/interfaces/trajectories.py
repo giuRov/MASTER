@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-import dash                                     # pip install dash
+import dash  # pip install dash
 from dash import dcc, html, Input, Output
 from dash.exceptions import PreventUpdate
 import pandas as pd
@@ -21,8 +21,6 @@ min_counts = 2000
 df_reduce = df_line[df_line['counts']>min_counts]
 mask_reduce = (df_reduce['num_stop']== 1)
 df_reduce = df_reduce.loc[mask_reduce]
-print(f'len(df_reduce): {len(df_reduce)}')
-print(df_reduce)
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -61,26 +59,17 @@ app.layout = html.Div([
 )
 
 def update_output(value):
-    print('--------------------- ' + str(datetime.now()) + ' ---------------------')
-
     dff = df_line[df_line['counts']>min_counts]
     len_choices = len(value)
     if(len_choices == 0) : 
-        print("raise PreventUpdate")
+        #print("raise PreventUpdate")
         raise PreventUpdate
 
-    #print(f'start_point: {value}')
     mask = (dff['start_point']==value) & (dff['num_stop']== 1)
     dff = dff.loc[mask]
-    #print(f'len(dff): {len(dff)}')
-    #print(dff)
 
     id_array = dff.cluster_id.tolist()
-    #print(f'id_array: {id_array}')
-
     df_new = pd.DataFrame(columns=['cluster_id', 'num_stop', 'counts','start_point', 'end_point', 'start_lat','start_lon','end_lat','end_lon'])
-    #print(df_new)
-
     for i in range(len(id_array)) :
         cluster_id = id_array[i]
         mask = (df_line['cluster_id']==cluster_id)
@@ -89,20 +78,6 @@ def update_output(value):
         df_new = pd.concat([df_new, df_line.loc[mask]],ignore_index=True)
         
     df_new.drop(columns=['Unnamed: 0'])
-
-    print('df_new')
-    print(df_new)
-    fig = go.Figure()
-
-    #array_lat = df_new['start_lat'].to_numpy()
-    #array_lon = df_new['start_lon'].to_numpy()
-    #print(f'array_lat: {array_lat}')
-    #print(f'array_lon: {array_lon}')
-    #fig = px.scatter_mapbox(dff, lat='lat', lon='lon', color ='counts', size = 'counts', 
-    #                        mapbox_style="carto-positron", width=1600, height=700, zoom=12.8,
-    #                        color_continuous_scale='viridis',
-    #                        range_color=[dff['counts'].min(),dff['counts'].max()],#size_max=50,
-    #                        center = {'lon': 12.337817, 'lat': 45.434185},hover_data={'lat': False, 'lon': False,'name':True,'counts': True})
 
     fig = px.line_mapbox(df_new,lat='start_lat', lon='start_lon', color='stops', zoom=3, height=300,labels={'start_lat': 'lat', 'start_lon': 'lon',
                         'start_point':'Stop name','num_stop': 'Stop number','counts':'Number of tickets'},hover_data={'start_lat': False, 'start_lon': False,'start_point':True,
