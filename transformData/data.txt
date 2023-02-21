@@ -1,0 +1,14 @@
+In this folder there are the following .csv files:
+	- df_line.csv
+	- val_grezzi.csv
+	- validation.csv
+	- valTimeSlotsHour.csv
+	- valWithDateTime.csv
+
+And there are the following .json files:
+	- mare_stop.json
+	- stop_aggr.json
+	- stop_all.json
+	- terra_stop.json
+	- titoli.json
+	- validazioni.json
