@@ -13,7 +13,7 @@ pio.templates.default = "plotly_white"
 #pio.templates.default = "plotly_dark" 
 
 # Data 
-directory = '/Users/giuliarovinelli/Desktop/Università/PhD/actv/actvData/data/transformData/'
+directory = '/Users/giuliarovinelli/Desktop/Università/PhD/actv/actvData/script/codeMASTER/MASTER/transformData/'
 df = pd.read_csv(directory+'valTimeSlotsHour.csv')
 df_validation = pd.read_csv(directory+'validation.csv')
 
