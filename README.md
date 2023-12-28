@@ -27,27 +27,43 @@ project
     └───datasetInterfaces.ipynb
     |
     └───interfaces
-        └───multipleDate
-        │  └───code.py
-        │  │
-        │  └───output
-        │
-        └───singleDate
-        │  └───code.py
-        │  │
-        │  └───output
-        │
-        └───trajectories
-        │  └───code.py
-        │  │
-        │  └───outputMurano
-        │  └───outputsingleMurano
-        │
-        └───videoSingleDay
-           └───code.py
-           │
-           └───output
-           └───outputVideo.mp4
+    |   └───multipleDate
+    |   │  └───code.py
+    |   │  │
+    |   │  └───output
+    |   │
+    |   └───singleDate
+    |   │  └───code.py
+    |   │  │
+    |   │  └───output
+    |   │
+    |   └───trajectories
+    |   │  └───code.py
+    |   │  │
+    |   │  └───outputMurano
+    |   │  └───outputsingleMurano
+    |   │
+    |   └───videoSingleDay
+    |      └───code.py
+    |      │
+    |      └───output
+    |      └───outputVideo.mp4
+    |
+    └───newInterfaces
+    |   └───MASTERlogo.png
+    |   │
+    |   └───clusters
+    |   │  └───validations.py
+    |   │  │
+    |   │  └───clusterCarnivalAllTickets.png
+    |   │  └───clusterCarnivalResidents.png
+    |   │  └───clusterCarnivalTourists.png
+    |   │
+    |   └───validationsTourists
+    |      └───tourists.py
+    |      │
+    |      └───carnivalOneWeek.mov
+    |      └───carnivalThreeDays.mov
 ```
 
 In the ```transformData``` folder there is a ```.txt``` file with the list of the datasets needed for the analysis. 
