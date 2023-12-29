@@ -18,6 +18,7 @@ In order to monitor the tourism flow in Venice, the questions we want to answer 
 
 
 
+
 The project is organized as follow:
 
 ```
