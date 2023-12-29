@@ -71,7 +71,7 @@ app.layout = html.Div([
                 {'label': 'One day', 'value': 1},
                 {'label': 'Two days', 'value': 2},
                 {'label': 'Three days', 'value': 3},
-                {'label': 'One week', 'value': 4}],
+                {'label': 'Seven days', 'value': 4}],
             value=1,
             placeholder="Select a ticket type",
             style={'width': 400, 'align-items': 'left', 'justify-content': 'left'}
