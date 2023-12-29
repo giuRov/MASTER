@@ -6,9 +6,16 @@ In order to monitor the tourism flow in Venice, the questions we want to answer 
 
 **a)** How do the stamps of the users vary in space and time?
 
+**b)** Is it possible to classify the users into categories, like workers, students, tourists?
+
 **c)** Are there typical patterns in the movements of the users?
 
 **d)** Are there different behaviors during the weekday and at the weekend?
+
+**e)** Which are the common itineraries for tourists?
+
+**f)** Detect the behavior of tourists during the different days of their stay.
+
 
 
 The project is organized as follow:
