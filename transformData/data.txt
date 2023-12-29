@@ -4,6 +4,9 @@ In this folder there are the following .csv files:
 	- validation.csv
 	- valTimeSlotsHour.csv
 	- valWithDateTime.csv
+        - dataset_compl.csv
+        - timeSlots.csv
+        - validations.csv
 
 And there are the following .json files:
 	- mare_stop.json
